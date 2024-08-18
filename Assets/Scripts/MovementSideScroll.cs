@@ -1,0 +1,43 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(CharacterController))]
+public class MovementSideScroll : MonoBehaviour
+{
+    [SerializeField] float _WalkingSpeed = 4.5f;
+    [SerializeField] float _SpinSpeed = 12f;
+    [SerializeField] float _Gravity = 500.0f;
+    [SerializeField] CharacterController _CharacterController;
+    [SerializeField] Animator _PlayerAnimator;
+    [SerializeField] Transform _Spin;
+    Vector3 m_MoveDirection = Vector3.zero;
+    [HideInInspector] public bool CanMove = true;
+    void Update()
+    {
+        // We are grounded, so recalculate move direction based on axes
+        // dont know if this is efficient
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 right = transform.TransformDirection(Vector3.right);
+        float curSpeedX = CanMove ? _WalkingSpeed * Input.GetAxis("Horizontal") : 0;
+        // if(curSpeedX != 0)
+        // {
+        //     _PlayerAnimator.SetBool ("walk", true);
+        // }
+        float curSpeedY = CanMove ? _WalkingSpeed * -Input.GetAxis("Vertical") : 0;
+        m_MoveDirection = (forward * curSpeedX) + (right * curSpeedY);
+        if (!_CharacterController.isGrounded)
+        {
+            m_MoveDirection.y -= _Gravity * Time.deltaTime;
+        }
+        _CharacterController.Move(m_MoveDirection * Time.deltaTime);
+
+        // calculate the angle of movement in radians then turn it to degrees
+        float targetYRotation = CanMove && (curSpeedY != 0 || curSpeedX != 0) ? Mathf.Atan2(-curSpeedY,-curSpeedX) * Mathf.Rad2Deg : _Spin.rotation.eulerAngles.y;
+
+        Vector3 targetRotation = new Vector3(0, targetYRotation, 0);
+
+        _Spin.rotation = Quaternion.Slerp(_Spin.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * _SpinSpeed);
+    }
+}

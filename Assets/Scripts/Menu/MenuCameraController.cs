@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
 using SimpleMan.CoroutineExtensions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using Unity.Cinemachine;
 
 public class MenuCameraController : MonoBehaviour
 {
-    [SerializeField] CinemachineVirtualCamera _Ocean;
-    [SerializeField] CinemachineVirtualCamera _Dark;
+    [SerializeField] CinemachineCamera _Ocean;
+    [SerializeField] CinemachineCamera _Dark;
     [SerializeField] Camera _MainCamera;
     [SerializeField] VideoPlayer _BubbleTransition;
 
@@ -24,7 +24,7 @@ public class MenuCameraController : MonoBehaviour
         _Ocean.Priority = 0;
         _Dark.Priority = 1;
         _QueuedSceneName = sceneName;
-        this.Delay(4.9f,() =>
+        this.Delay(4.85f,() =>
         {
             _BubbleTransition.Play();
             StartCoroutine(ChangeColor(new Color(0.08810966f, 0.1572813f, 0.4150943f, 1f),Color.black,4.5f,() => SceneManager.LoadScene(_QueuedSceneName)));
