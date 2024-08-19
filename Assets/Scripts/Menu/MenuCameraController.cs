@@ -16,8 +16,7 @@ public class MenuCameraController : MonoBehaviour
     string _QueuedSceneName;
     void OnEnable()
     {
-        _Ocean.Priority = 1;
-        _Dark.Priority = 0;
+        CinemachineCameraManager.Instance.SetCam(_Ocean);
     }
     public void GoToScene(string sceneName)
     {

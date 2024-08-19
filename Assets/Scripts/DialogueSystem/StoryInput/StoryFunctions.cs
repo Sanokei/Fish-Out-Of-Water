@@ -21,6 +21,9 @@ namespace Monologue.Dialogue
         public delegate void OnMoveTo(string characterTag, int x, int y, float delay, bool disappear);
         public static event OnMoveTo OnMoveToEvent;
 
+        public delegate void OnCameraSet(string cameraTag, bool goBack);
+        public static event OnCameraSet OnCameraSetEvent;
+
         public static List<string> TagtoList(string tagValue)
         {
             if(tagValue.ToCharArray().Count() == 0)
@@ -103,6 +106,17 @@ namespace Monologue.Dialogue
             //     QuestManager.Instance._QuestPanel.Add(id,questName,questBody,iconName,color);
             // });
 
+            // story.BindExternalFunction("SetCamera", (string cameraTag, bool goBack) => 
+            // {
+            //     OnCameraSetEvent?.Invoke( cameraTag, goBack );
+            // });
+
+            story.BindExternalFunction("SetCamera", (string cameraTag) => 
+            {
+                // FIXME: Because it doesnt wait for the anaimation to end before continuing, it can reach ends where it tries to look for camera null
+                OnCameraSetEvent?.Invoke( cameraTag, false ); // will fix later
+            });
+
             story.BindExternalFunction("MoveTo", (string characterTag, int x, int y, float delay, bool disappear) => 
             {
                 OnMoveToEvent?.Invoke(characterTag,x,y,delay,disappear);
@@ -119,6 +133,7 @@ namespace Monologue.Dialogue
             story.UnbindExternalFunction("InputText");
             story.UnbindExternalFunction("Emoji");
             // story.UnbindExternalFunction("CreateQuest");
+            story.UnbindExternalFunction("SetCamera");
             story.UnbindExternalFunction("MoveTo");
             story.UnbindExternalFunction("ChangeScene");
         }

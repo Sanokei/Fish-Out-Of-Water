@@ -10,3 +10,5 @@ EXTERNAL Emoji(emoteName,characterTag)
 EXTERNAL MoveTo(characterTag, x, y, delay, disappear)
 
 EXTERNAL ChangeScene(sceneName)
+
+EXTERNAL SetCamera(camName)

@@ -13,10 +13,12 @@ namespace Monologue.Dialogue
     public class DialogueManager : MonoBehaviour
     {
         public static DialogueManager Instance {get; private set;}
-
+        public bool IsWaiting;
         public delegate void OnDialogue();
         public static event OnDialogue OnDialogueStartEvent;
         public static event OnDialogue OnDialogueEndEvent;
+        public static event OnDialogue OnDialogueContinuedEvent;
+        public static event OnDialogue OnDialogueTryingToContinueEvent;
         
         [Header("Globals Ink")]
         [SerializeField] TextAsset m_GlobalsJSON;
@@ -82,13 +84,15 @@ namespace Monologue.Dialogue
         }
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F) || (Input.GetMouseButtonDown(0) && CurrentStory?.currentChoices.Count == 0))
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.F) || (Input.GetMouseButtonDown(0) && CurrentStory?.currentChoices.Count == 0))
+            && !IsWaiting)
                 ContinueStory();
         }
         // FIXME: stupid flag variable
         bool _isAlreadyContinued;
         public void ContinueStory()
         {
+            OnDialogueTryingToContinueEvent?.Invoke();
             if (!ActiveDialoguePanel)
                 return;
             
@@ -109,6 +113,8 @@ namespace Monologue.Dialogue
                 
                 if(CurrentStory.currentText == "" && !CurrentStory.canContinue)
                     ExitDialogMode();
+                
+                OnDialogueContinuedEvent?.Invoke();
 
                 // Strange bug with LINQ where it tries to send every Selected thing first before it tolists and sets.
                 // tried it with a parentetical and it didnt work either. 

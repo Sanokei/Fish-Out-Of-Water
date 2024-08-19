@@ -1687,7 +1687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c5078c193edbf48b3a7b5aa07b3603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TotalNotDestroyable: 4
+  _TotalNotDestroyable: 5
 --- !u!4 &1247547259
 Transform:
   m_ObjectHideFlags: 0
@@ -2446,6 +2446,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633754926}
   m_CullTransparentMesh: 1
+--- !u!1 &1679690064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1679690066}
+  - component: {fileID: 1679690067}
+  - component: {fileID: 1679690065}
+  m_Layer: 0
+  m_Name: VirtualCameraManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1679690065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679690064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f123504bf96ec489048119fb9b8c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1679690066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679690064}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1679690067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679690064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f432ac9fdcd0d55489422805bd3f4721, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Cameras:
+    ItemKeys: []
+    ItemValues: []
 --- !u!1 &1681646964
 GameObject:
   m_ObjectHideFlags: 0
@@ -3135,6 +3195,7 @@ SceneRoots:
   - {fileID: 856862506}
   - {fileID: 2113273719}
   - {fileID: 1719884063}
+  - {fileID: 1679690066}
   - {fileID: 2087971201}
   - {fileID: 438295278}
   - {fileID: 1895935369}
