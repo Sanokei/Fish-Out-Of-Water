@@ -21,10 +21,6 @@ public class MovementSideScroll : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
         float curSpeedX = CanMove ? _WalkingSpeed * Input.GetAxis("Horizontal") : 0;
-        // if(curSpeedX != 0)
-        // {
-        //     _PlayerAnimator.SetBool ("walk", true);
-        // }
         float curSpeedY = CanMove ? _WalkingSpeed * -Input.GetAxis("Vertical") : 0;
         m_MoveDirection = (forward * curSpeedX) + (right * curSpeedY);
         if (!_CharacterController.isGrounded)
@@ -35,8 +31,11 @@ public class MovementSideScroll : MonoBehaviour
 
         // calculate the angle of movement in radians then turn it to degrees
         float targetYRotation = CanMove && (curSpeedY != 0 || curSpeedX != 0) ? Mathf.Atan2(-curSpeedY,-curSpeedX) * Mathf.Rad2Deg : _Spin.rotation.eulerAngles.y;
-
-        Vector3 targetRotation = new Vector3(0, targetYRotation, 0);
+        if (targetYRotation != _Spin.rotation.eulerAngles.y)
+            _PlayerAnimator.SetBool("walking", true);
+        else
+            _PlayerAnimator.SetBool("walking", false);
+        Vector3 targetRotation = new(0, targetYRotation, 0);
 
         _Spin.rotation = Quaternion.Slerp(_Spin.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * _SpinSpeed);
     }
