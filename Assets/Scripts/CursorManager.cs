@@ -1,10 +1,11 @@
-using System;
+       using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Nolet.Outline;
 using UnityEditor;
+using Monologue.Dialogue;
 
 public class CursorManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class CursorManager : MonoBehaviour
     [SerializeField] Texture2D _InvestigateCursor;
     [SerializeField] Camera _MainCamera;
     [SerializeField] LayerMask _InteractableLayer;
+    public delegate void OnInteractable(GameObject interactable);
+    public static event OnInteractable OnInteractableClickedEvent;
 
     GameObject _CurrentHoveredObject;
      void OnEnable()
@@ -40,24 +43,32 @@ public class CursorManager : MonoBehaviour
         if(_MainCamera == null)
             return;
 
-        Ray ray = _MainCamera.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, _InteractableLayer))
+        if (Physics.Raycast(_MainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, _InteractableLayer))
         {
             GameObject hitObject = hit.collider.gameObject;
-            if (hitObject.TryGetComponent<Outline>(out Outline _Outline))
+            if (Input.GetMouseButtonDown(0))
+                Cursor.SetCursor(_ClickInteractableCursor, Vector2.zero, CursorMode.Auto);
+            if (Input.GetMouseButtonUp(0))
+            {
+                Cursor.SetCursor(_DefaultCursor, Vector2.zero, CursorMode.Auto);
+                if(!DialogueManager.Instance.ActiveDialoguePanel)
+                    OnInteractableClickedEvent?.Invoke(hitObject);
+            }
+
+            if (_CurrentHoveredObject == hitObject)
                 return;
             Outline highlight = hitObject.AddComponent<Outline>();
             highlight.OutlineMode = Outline.Mode.OutlineAll;
             highlight.OutlineColor = Color.white;
             highlight.OutlineWidth = 15f;
 
+            Cursor.SetCursor(_HoverInteractableCursor, Vector2.zero, CursorMode.Auto);
             _CurrentHoveredObject = hitObject;
         }
         else
         {
-            if(_MainCamera == null || _CurrentHoveredObject == null)
+            Cursor.SetCursor(_DefaultCursor, Vector2.zero, CursorMode.Auto);
+            if (_CurrentHoveredObject == null)
                 return;
             Destroy(_CurrentHoveredObject.GetComponent<Outline>());
             _CurrentHoveredObject = null;
