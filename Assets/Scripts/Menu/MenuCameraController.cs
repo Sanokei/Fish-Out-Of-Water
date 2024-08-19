@@ -14,7 +14,7 @@ public class MenuCameraController : MonoBehaviour
     [SerializeField] VideoPlayer _BubbleTransition;
 
     string _QueuedSceneName;
-    void OnEnable()
+    void Start()
     {
         CinemachineCameraManager.Instance.SetCam(_Ocean);
     }

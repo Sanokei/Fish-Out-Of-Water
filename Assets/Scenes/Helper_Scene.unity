@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3729768ff686c604b8750471bba25596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SceneName: Menu
+  _SceneName: Tutorial
   _TotalChangeSceneCount: 2
 --- !u!4 &733389221
 Transform:
@@ -2696,9 +2696,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef17993e2c3dc84499e4ddca14d3f753, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _DefaultCursor: {fileID: 0}
-  _HoverCursor: {fileID: 0}
-  _ClickCursor: {fileID: 0}
+  _DefaultCursor: {fileID: 2800000, guid: 6e0f15c2676d77e47b14099141e14ec4, type: 3}
+  _HoverInteractableCursor: {fileID: 2800000, guid: c8f470206de267d47910cb8d54e22d87, type: 3}
+  _ClickInteractableCursor: {fileID: 2800000, guid: bbc182e5a75ef104190339c4d8dccda2, type: 3}
+  _InvestigateCursor: {fileID: 2800000, guid: 247e5dbcbc13e1345827373d6aaf7099, type: 3}
+  _MainCamera: {fileID: 0}
+  _InteractableLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1817626320
 GameObject:
   m_ObjectHideFlags: 0

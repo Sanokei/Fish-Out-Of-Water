@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: f7cfb94e8f6cebd4b94d0f389c20cc93
+  - enabled: 1
+    path: Assets/Scenes/CursorTest.unity
+    guid: ca7598e97cba42f41b0eb3dcdaf6c50e
   m_configObjects: {}

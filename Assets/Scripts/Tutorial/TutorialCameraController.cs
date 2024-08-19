@@ -21,6 +21,7 @@ public class TutorialCameraController : MonoBehaviour
     }
     void Start()
     {
+        _PlayerAnimation.SetTrigger("wakeup");
         this.Delay(3.1f, () =>
         {
             StartCoroutine(SmoothlyDecreaseShake(1.2f));
@@ -29,7 +30,7 @@ public class TutorialCameraController : MonoBehaviour
         this.Delay(6f, () => 
         {
             _Sideview.Priority = 2;
-            this.Delay(2.5f, () =>  _PlayerAnimation.Play("Player_Wake"));
+            _PlayerAnimation.ResetTrigger("wakeup");
             this.Delay(3f, () => _StartDialogue.EnterDialogue());
         });
     }

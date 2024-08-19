@@ -25,7 +25,6 @@ public class MovementSideScroll : MonoBehaviour
     }
     void PlayerSpoken(string speaker)
     {
-        print(speaker);
         if(speaker.Equals("player"))
         {
             _PlayerAnimator.SetBool("talking",true);
@@ -35,7 +34,6 @@ public class MovementSideScroll : MonoBehaviour
 
     void StopPlayerYappin()
     {
-        print("stop");
         // calls this first then player spoken so should be okay that there is no check.
         _PlayerAnimator.SetBool("talking",false);
         DialogueManager.OnDialogueTryingToContinueEvent -= StopPlayerYappin;
@@ -56,7 +54,7 @@ public class MovementSideScroll : MonoBehaviour
         _CharacterController.Move(m_MoveDirection * Time.deltaTime);
 
         // calculate the angle of movement in radians then turn it to degrees
-        float targetYRotation = CanMove && (curSpeedY != 0 || curSpeedX != 0) ? Mathf.Atan2(curSpeedY,curSpeedX) * Mathf.Rad2Deg : _Spin.rotation.eulerAngles.y;
+        float targetYRotation = (curSpeedY != 0 || curSpeedX != 0) ? Mathf.Atan2(curSpeedY,curSpeedX) * Mathf.Rad2Deg : _Spin.rotation.eulerAngles.y;
         if (targetYRotation != _Spin.rotation.eulerAngles.y)
             _PlayerAnimator.SetBool("walking", true);
         else
