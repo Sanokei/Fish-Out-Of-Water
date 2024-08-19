@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3729768ff686c604b8750471bba25596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SceneName: Tutorial
+  _SceneName: Menu
   _TotalChangeSceneCount: 2
 --- !u!4 &733389221
 Transform:
@@ -1687,7 +1687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4c5078c193edbf48b3a7b5aa07b3603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _TotalNotDestroyable: 5
+  _TotalNotDestroyable: 6
 --- !u!4 &1247547259
 Transform:
   m_ObjectHideFlags: 0
@@ -2063,8 +2063,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 157.69998}
-  m_SizeDelta: {x: 1000, y: 315.4}
+  m_AnchoredPosition: {x: 0, y: 85.88141}
+  m_SizeDelta: {x: 1000, y: 171.7628}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1397898802
 MonoBehaviour:
@@ -2639,6 +2639,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f123504bf96ec489048119fb9b8c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1763398383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1763398384}
+  - component: {fileID: 1763398386}
+  - component: {fileID: 1763398385}
+  m_Layer: 0
+  m_Name: CursorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1763398384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763398383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1763398385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763398383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f123504bf96ec489048119fb9b8c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1763398386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763398383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef17993e2c3dc84499e4ddca14d3f753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _DefaultCursor: {fileID: 0}
+  _HoverCursor: {fileID: 0}
+  _ClickCursor: {fileID: 0}
 --- !u!1 &1817626320
 GameObject:
   m_ObjectHideFlags: 0
@@ -3159,6 +3219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a127de3449e60d438700d574825cdef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsWaiting: 0
   m_GlobalsJSON: {fileID: 4900000, guid: 61754f0c58f32c34db5074d905e2b12a, type: 3}
   _DialoguePanel: {fileID: 1895935368}
 --- !u!4 &2113273719
@@ -3196,6 +3257,7 @@ SceneRoots:
   - {fileID: 2113273719}
   - {fileID: 1719884063}
   - {fileID: 1679690066}
+  - {fileID: 1763398384}
   - {fileID: 2087971201}
   - {fileID: 438295278}
   - {fileID: 1895935369}

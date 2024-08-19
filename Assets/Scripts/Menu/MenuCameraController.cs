@@ -23,7 +23,7 @@ public class MenuCameraController : MonoBehaviour
         _Ocean.Priority = 0;
         _Dark.Priority = 1;
         _QueuedSceneName = sceneName;
-        this.Delay(4.85f,() =>
+        this.Delay(5f,() =>
         {
             _BubbleTransition.Play();
             StartCoroutine(ChangeColor(new Color(0.08810966f, 0.1572813f, 0.4150943f, 1f),Color.black,4.5f,() => SceneManager.LoadScene(_QueuedSceneName)));

@@ -24,6 +24,9 @@ namespace Monologue.Dialogue
         public delegate void OnCameraSet(string cameraTag, bool goBack);
         public static event OnCameraSet OnCameraSetEvent;
 
+        public delegate void OnSpeaker(string speaker);
+        public static event OnSpeaker OnSpeakerEvent;
+
         public static List<string> TagtoList(string tagValue)
         {
             if(tagValue.ToCharArray().Count() == 0)
@@ -50,6 +53,7 @@ namespace Monologue.Dialogue
                 {
                     case "speaker":
                         DialogueManager.Instance._DialoguePanel.DialogueDisplayName = tagValue;
+                        OnSpeakerEvent?.Invoke(tagValue);
                     break;
 
                     case "image":
