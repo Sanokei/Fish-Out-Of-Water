@@ -8,6 +8,7 @@ public class TutorialCameraController : MonoBehaviour
 {
     [SerializeField] CinemachineCamera _Sideview;
     [SerializeField] MovementSideScroll _Player;
+    [SerializeField] EnterDialogueMode _StartDialogue;
     void Awake()
     {
         _Player.CanMove = false;
@@ -24,6 +25,6 @@ public class TutorialCameraController : MonoBehaviour
 
     void BeginTutorial()
     {
-        
+        _StartDialogue.EnterDialogue();
     }
 }
