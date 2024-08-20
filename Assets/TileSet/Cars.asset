@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b01265a4838ea844bb0ac1cf248df8d8, type: 3}
+  m_Name: Cars
+  m_EditorClassIdentifier: 
+  tiles:
+  - prefab: {fileID: 919132149155446097, guid: a952371bd9b28ac45805e3198ecc9317, type: 3}
+    offset: {x: -0.07161248, y: 1.0480729, z: -0.0069429874}
+    size: {x: 2.557957, y: 2.174402, z: 6.150346}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 919132149155446097, guid: 7cde738d13e599448bbd6fdf7518ba4b, type: 3}
+    offset: {x: -0.00000047683716, y: 1.0723015, z: -0.030551434}
+    size: {x: 2.898401, y: 2.198651, z: 6.533011}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 919132149155446097, guid: 5ccae43d19c219f4990d9b0718363d28, type: 3}
+    offset: {x: -0.00000047683716, y: 1.0320575, z: 0.027039528}
+    size: {x: 2.648067, y: 2.143879, z: 5.611395}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 919132149155446097, guid: 855513b02a808384d94aa1ed1470e111, type: 3}
+    offset: {x: 0, y: 1.3353194, z: 0.0021455288}
+    size: {x: 3.395342, y: 2.742635, z: 6.298379}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 919132149155446097, guid: 43c4726309d981b41b56f20db8459fa1, type: 3}
+    offset: {x: 0, y: 0.9959215, z: 0.045371056}
+    size: {x: 2.781204, y: 2.046375, z: 7.365836}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 919132149155446097, guid: 72f8bef7c2e35bc428df5ea136099673, type: 3}
+    offset: {x: 0, y: 0.834116, z: 0.02743411}
+    size: {x: 2.480438, y: 1.668232, z: 6.359838}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 919132149155446097, guid: c468644089c3973489db386cd33c6fef, type: 3}
+    offset: {x: 0, y: 1.378585, z: 0}
+    size: {x: 2.42606, y: 2.8633878, z: 5.781532}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}
+  - prefab: {fileID: 919132149155446097, guid: f569758596f4d8b4797981e4c07ef2ad, type: 3}
+    offset: {x: 0, y: 1.5784465, z: -0.32129002}
+    size: {x: 3.166504, y: 3.234565, z: 6.892134}
+    sizeCalculationOption: 0
+    thumbnail: {fileID: 0}
+    category:
+      name: 
+      color: {r: 1, g: 1, b: 1, a: 1}

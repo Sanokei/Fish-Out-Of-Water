@@ -28,7 +28,7 @@ MonoBehaviour:
     To: Sideview
     Blend:
       Style: 2
-      Time: 3
+      Time: 1.75
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
