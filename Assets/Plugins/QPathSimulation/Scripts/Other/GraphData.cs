@@ -166,7 +166,7 @@ public class GraphData {
         for (int i = 0; i < paths.Count; i++) {
             Vector2Int v = new Vector2Int(paths[i].IDOfA, paths[i].IDOfB);
             if (pathsByNodes.ContainsKey(v)) {
-                Debug.Log("Warrning duble key " + v);
+                // Debug.Log("Warrning duble key " + v);
                 if (paths[pathsByNodes[v]] == paths[i]) {
                     Debug.Log("Error duble path");
                 }

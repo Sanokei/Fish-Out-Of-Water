@@ -7,13 +7,6 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.awixstudio.road-system": {
-      "version": "https://github.com/AwixStudio/Road-System.git#main",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "6d55bb9dceddf2e2d386915e1b84ba552b55df8c"
-    },
     "com.unity.cinemachine": {
       "version": "3.1.1",
       "depth": 0,
