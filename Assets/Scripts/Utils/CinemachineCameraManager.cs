@@ -41,7 +41,7 @@ public class CinemachineCameraManager : MonoBehaviour
     }
     void AddCameras(Scene scene0, Scene scene1)
     {
-        List<CinemachineCamera> _AllCameras = GameObject.FindObjectsOfType<CinemachineCamera>(true).ToList();
+        List<CinemachineCamera> _AllCameras = FindObjectsOfType<CinemachineCamera>(true).ToList();
         foreach(var cam in _AllCameras)
             _Cameras.Add(cam.name, cam);
     }
@@ -51,7 +51,7 @@ public class CinemachineCameraManager : MonoBehaviour
         SetCam(camName);
         // FIXME: this is bad
         DialogueManager.Instance.IsWaiting = true;
-        this.Delay(5f, () => DialogueManager.Instance.IsWaiting = false);
+        this.Delay(1f, () => DialogueManager.Instance.IsWaiting = false);
         if(goBack)
             DialogueManager.OnDialogueTryingToContinueEvent += CallbackCam;
     }

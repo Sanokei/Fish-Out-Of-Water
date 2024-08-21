@@ -19,6 +19,8 @@ namespace Monologue.Dialogue
         public static event OnDialogue OnDialogueEndEvent;
         public static event OnDialogue OnDialogueContinuedEvent;
         public static event OnDialogue OnDialogueTryingToContinueEvent;
+        public delegate void OnChoice(List<string> choices);
+        public static event OnChoice OnChoiceEvent;
         
         [Header("Globals Ink")]
         [SerializeField] TextAsset m_GlobalsJSON;
@@ -119,7 +121,9 @@ namespace Monologue.Dialogue
                 // Strange bug with LINQ where it tries to send every Selected thing first before it tolists and sets.
                 // tried it with a parentetical and it didnt work either. 
                 var t = CurrentStory.currentChoices.Select(ctx => ctx.text).ToList();
-                _DialoguePanel.DialogueOptions = t;
+                _DialoguePanel.DialogueOptions = new();
+                if(t.Count > 0)
+                    OnChoiceEvent?.Invoke(t);
 
                 _DialoguePanel.DialogueText = CurrentStory.currentText;
                 StoryFunctions.HandleTags(CurrentStory);
@@ -155,6 +159,13 @@ namespace Monologue.Dialogue
         public void ChoiceSelected(OptionPrefab option)
         {
             CurrentStory.ChooseChoiceIndex(option.index);
+            ContinueStory();
+        }
+
+        public void ChoiceSelected(int idx)
+        {
+            print("int" + idx);
+            CurrentStory.ChooseChoiceIndex(idx);
             ContinueStory();
         }
 

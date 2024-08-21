@@ -14,7 +14,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: f7cfb94e8f6cebd4b94d0f389c20cc93
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CursorTest.unity
     guid: ca7598e97cba42f41b0eb3dcdaf6c50e
+  - enabled: 1
+    path: Assets/Scenes/Office.unity
+    guid: 9734a3302b94f1544815953c1bcdbacd
+  - enabled: 1
+    path: Assets/Scenes/Work.unity
+    guid: c2d98642efb7686409401a0fc5ce4f30
+  - enabled: 1
+    path: Assets/Scenes/Canned.unity
+    guid: 7a7a178bbe8d7e44098335102ae76d16
   m_configObjects: {}

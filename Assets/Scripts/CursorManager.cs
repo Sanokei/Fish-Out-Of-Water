@@ -42,17 +42,18 @@ public class CursorManager : MonoBehaviour
     {
         if(_MainCamera == null)
             return;
-
         if (Physics.Raycast(_MainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, _InteractableLayer))
         {
             GameObject hitObject = hit.collider.gameObject;
+            if (Physics.Raycast(_MainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit obstacleHit, hit.distance, ~_InteractableLayer))
+                return;
+
             if (Input.GetMouseButtonDown(0))
                 Cursor.SetCursor(_ClickInteractableCursor, Vector2.zero, CursorMode.Auto);
             if (Input.GetMouseButtonUp(0))
             {
                 Cursor.SetCursor(_DefaultCursor, Vector2.zero, CursorMode.Auto);
-                if(!DialogueManager.Instance.ActiveDialoguePanel)
-                    OnInteractableClickedEvent?.Invoke(hitObject);
+                OnInteractableClickedEvent?.Invoke(hitObject);
             }
 
             if (_CurrentHoveredObject == hitObject)
