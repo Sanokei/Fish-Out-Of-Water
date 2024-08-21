@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject _Player;
     [SerializeField] Vector3 _SpawnLocation;
     [SerializeField] Vector3 _LerpLocation;
+    [SerializeField] Vector3 _BackLerpLocation;
     [SerializeField] TMP_Text _ProductsLeft;
     [SerializeField] TMP_Text _Quota;
     public int Quota = 65827;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] TextAsset _Start;
     [SerializeField] int _TotalConversations;
+    GameObject _CurrentProduct;
     void OnEnable()
     {
         DialogueManager.OnDialogueEndEvent += InspectProduct;
@@ -58,14 +60,14 @@ public class GameManager : MonoBehaviour
     private void InspectProduct()
     {
         CinemachineCameraManager.Instance.SetCam("Workview");
-        GameObject go = Instantiate(_Product, _SpawnLocation, Quaternion.identity);
+        _CurrentProduct = Instantiate(_Product, _SpawnLocation, Quaternion.identity);
         Weight = UnityEngine.Random.Range(140,300);
         _Weight.text = $"{Weight}";
-        go.transform.LookAt(_Player.transform);
+        _CurrentProduct.transform.LookAt(_Player.transform);
         ConveyerBeltManager.Instance.RunConveyerBelt(5f);
         this.Delay(2f, () =>
         {
-            go.transform.localPositionTransition(_LerpLocation, 5f)
+            _CurrentProduct.transform.localPositionTransition(_LerpLocation, 5f)
                 .JoinTransition()
                 .EventTransition(() => 
                 {
@@ -103,6 +105,13 @@ public class GameManager : MonoBehaviour
                 _RedButton.Play();
                 ConveyerBeltManager.Instance.RunConveyerBelt(-6f);
                 DialogueManager.Instance.ChoiceSelected(1);
+
+                _CurrentProduct.transform.localPositionTransition(_BackLerpLocation, 3f)
+                    .JoinDelayTransition(5f)
+                    .EventTransition(() => 
+                    {
+                        Destroy(_CurrentProduct);
+                    });
             }
             else if(interactable.name.Equals("yes"))
             {
@@ -111,6 +120,12 @@ public class GameManager : MonoBehaviour
                 CurrentQuota += Weight;
                 ConveyerBeltManager.Instance.RunConveyerBelt(1f);
                 DialogueManager.Instance.ChoiceSelected(0);
+                _CurrentProduct.transform.localPositionTransition(_LerpLocation + new Vector3(2,0), 1f)
+                    .JoinTransition()
+                    .EventTransition(() => 
+                    {
+                        Destroy(_CurrentProduct);
+                    });
             }
             _TotalConversations++;
             _ProductsLeft.text = $"{_TotalConversations}/{_Conversations.Count}";
