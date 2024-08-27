@@ -12,6 +12,6 @@ public class TutorialLeaveScene : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         _Player.CanMove = false;
-        TransitionManager.Instance().Transition("Work", _CircleTransition, 1f);
+        TransitionManager.Instance().Transition("Office", _CircleTransition, 0f);
     }
 }

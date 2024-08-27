@@ -12,8 +12,10 @@ come on. be reasonable here.
 *[yes]
 ~ SetCamera("Minnowview")
 i guess he really wanted to become soylent
+~SetCamera("Workview")
 -> DONE
 *[no]
 ~ SetCamera("Minnowview")
 live my child
+~SetCamera("Workview")
 -> DONE

@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3729768ff686c604b8750471bba25596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SceneName: Work
+  _SceneName: Menu
   _TotalChangeSceneCount: 2
 --- !u!4 &733389221
 Transform:

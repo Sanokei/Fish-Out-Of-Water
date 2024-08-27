@@ -23,7 +23,7 @@ public class OfficeScene : MonoBehaviour
     private void BeginTutorial()
     {
         
-       TransitionManager.Instance().Transition("Work",_CircleTransition, 1f);
+       TransitionManager.Instance().Transition("Work",_CircleTransition, 0f);
     }
 
     void Start()

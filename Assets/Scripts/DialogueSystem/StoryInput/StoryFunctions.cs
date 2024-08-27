@@ -27,6 +27,9 @@ namespace Monologue.Dialogue
         public delegate void OnSpeaker(string speaker);
         public static event OnSpeaker OnSpeakerEvent;
 
+        public delegate void OnAnimation(string animation);
+        public static event OnAnimation OnAnimationEvent;
+
         public static List<string> TagtoList(string tagValue)
         {
             if(tagValue.ToCharArray().Count() == 0)
@@ -54,6 +57,10 @@ namespace Monologue.Dialogue
                     case "speaker":
                         DialogueManager.Instance._DialoguePanel.DialogueDisplayName = tagValue;
                         OnSpeakerEvent?.Invoke(tagValue);
+                    break;
+
+                    case "animation":
+                        OnAnimationEvent?.Invoke(tagValue);
                     break;
 
                     case "image":

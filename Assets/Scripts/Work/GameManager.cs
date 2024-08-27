@@ -8,6 +8,7 @@ using System;
 using Lean.Transition;
 using SimpleMan.CoroutineExtensions;
 using UnityEngine.SceneManagement;
+using EasyTransition;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject _Product;
@@ -32,47 +33,68 @@ public class GameManager : MonoBehaviour
     [SerializeField] AnimationClip _CloseRightSide;
     [SerializeField] AnimationClip _CloseLeftSide;
     
+    [SerializeField] Animator _PlayerAnimator;
+
     [SerializeField] List<TextAsset> _Conversations;
 
     [SerializeField] TextAsset _Start;
     [SerializeField] int _TotalConversations;
     GameObject _CurrentProduct;
+
+    [SerializeField] TransitionSettings _CircleTransition;
+    [SerializeField] MovementSideScroll _PlayerMovement;
     void OnEnable()
     {
-        DialogueManager.OnDialogueEndEvent += InspectProduct;
+        DialogueManager.OnDialogueEndEvent += StartGame;
         DialogueManager.OnChoiceEvent += SetTrialChamber;
         CursorManager.OnInteractableClickedEvent += DevineJudgement;
+        StoryFunctions.OnAnimationEvent += StartPlayerAnimation;
     }
 
     void OnDisable()
     {
-        DialogueManager.OnDialogueEndEvent -= InspectProduct;
+        // DialogueManager.OnDialogueEndEvent -= InspectProduct;
         DialogueManager.OnChoiceEvent -= SetTrialChamber;
         CursorManager.OnInteractableClickedEvent -= DevineJudgement;
+        StoryFunctions.OnAnimationEvent -= StartPlayerAnimation;
     }
 
     void Start()
     {
         CinemachineCameraManager.Instance.SetCam("Workview");
+        _Quota.text = $"{CurrentQuota}lb/{Quota}lb";
+        _ProductsLeft.text = $"{_Conversations.Count - _TotalConversations}/{_Conversations.Count}";
         DialogueManager.Instance.EnterDialogMode(_Start);
     }
-
+    void StartGame()
+    {
+        InspectProduct();
+        DialogueManager.OnDialogueEndEvent -= StartGame;
+    }
     private void InspectProduct()
     {
+        if(_TotalConversations >= _Conversations.Count)
+        {
+            SendToFire();
+            return;
+        }   
         CinemachineCameraManager.Instance.SetCam("Workview");
         _CurrentProduct = Instantiate(_Product, _SpawnLocation, Quaternion.identity);
+        _PlayerAnimator = _CurrentProduct.GetComponent<Animator>();
         Weight = UnityEngine.Random.Range(140,300);
-        _Weight.text = $"{Weight}";
-        _CurrentProduct.transform.LookAt(_Player.transform);
+        // _CurrentProduct.transform.LookAt(_Player.transform);
+        _CurrentProduct.transform.rotation = Quaternion.Euler(0,90,0);
         ConveyerBeltManager.Instance.RunConveyerBelt(5f);
-        this.Delay(2f, () =>
+        this.Delay(1f, () =>
         {
-            _CurrentProduct.transform.localPositionTransition(_LerpLocation, 5f)
-                .JoinTransition()
-                .EventTransition(() => 
-                {
-                    DialogueManager.Instance.EnterDialogMode(_Conversations[_TotalConversations]);
-                });
+            if(_CurrentProduct)
+                _CurrentProduct.transform.localPositionTransition(_LerpLocation, 5f)
+                    .JoinTransition()
+                    .EventTransition(() => 
+                    {
+                        _Weight.text = $"{Weight}lb";
+                        DialogueManager.Instance.EnterDialogMode(_Conversations[_TotalConversations]);
+                    });
         });
     }
 
@@ -90,10 +112,7 @@ public class GameManager : MonoBehaviour
     {
         if(DialogueManager.Instance.ActiveDialoguePanel)
         {
-            if(_TotalConversations >= _Conversations.Count)
-            {
-                SceneManager.LoadScene("Canned");
-            }
+            CursorManager.OnInteractableClickedEvent -= DevineJudgement;
             _LeftCover.clip = _CloseLeftSide;
             _LeftCover.Play();
             _RightCover.clip = _CloseRightSide;
@@ -106,8 +125,8 @@ public class GameManager : MonoBehaviour
                 ConveyerBeltManager.Instance.RunConveyerBelt(-6f);
                 DialogueManager.Instance.ChoiceSelected(1);
 
-                _CurrentProduct.transform.localPositionTransition(_BackLerpLocation, 3f)
-                    .JoinDelayTransition(5f)
+                _CurrentProduct.transform.localPositionTransition(_BackLerpLocation - new Vector3(3,0), 3f)
+                    .JoinDelayTransition(3f)
                     .EventTransition(() => 
                     {
                         Destroy(_CurrentProduct);
@@ -120,22 +139,40 @@ public class GameManager : MonoBehaviour
                 CurrentQuota += Weight;
                 ConveyerBeltManager.Instance.RunConveyerBelt(1f);
                 DialogueManager.Instance.ChoiceSelected(0);
-                _CurrentProduct.transform.localPositionTransition(_LerpLocation + new Vector3(2,0), 1f)
-                    .JoinTransition()
+                _CurrentProduct.transform.localPositionTransition(_LerpLocation + new Vector3(3,0), 1f)
+                    .JoinDelayTransition(3f)
                     .EventTransition(() => 
                     {
                         Destroy(_CurrentProduct);
                     });
             }
             _TotalConversations++;
-            _ProductsLeft.text = $"{_TotalConversations}/{_Conversations.Count}";
+            _ProductsLeft.text = $"{_Conversations.Count - _TotalConversations}/{_Conversations.Count}";
             _Quota.text = $"{CurrentQuota}lb/{Quota}lb";
+            this.Delay(7f,() => {
+                InspectProduct();
+                CursorManager.OnInteractableClickedEvent += DevineJudgement;
+            });
         }
     }
+    string _CurrentPlayerAnimation;
+    void StartPlayerAnimation(string animationString)
+    {
+        print("test");
+        _CurrentPlayerAnimation = animationString;
+        _PlayerAnimator.SetBool(_CurrentPlayerAnimation, true);
+        DialogueManager.OnDialogueTryingToContinueEvent += StopPlayerAnimation;
+    }
 
-    // Human gets orderer
-    // conveyer belt
-    // EnterDialogueMode dialogueMode;
-    // covers go up.
-     
+    void StopPlayerAnimation()
+    {
+        _PlayerAnimator.SetBool(_CurrentPlayerAnimation, false);
+        DialogueManager.OnDialogueTryingToContinueEvent -= StopPlayerAnimation;
+    }
+
+    void SendToFire()
+    {
+        _PlayerMovement.CanMove = false;
+        TransitionManager.Instance().Transition("Firing", _CircleTransition, 0f);
+    }
 }
