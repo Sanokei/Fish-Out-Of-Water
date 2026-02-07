@@ -19,6 +19,7 @@ public class CursorManager : MonoBehaviour
     public static event OnInteractable OnInteractableClickedEvent;
 
     GameObject _CurrentHoveredObject;
+    // Because the class expects the object to be of type DoNotDestroyOnReload it needs the camera inference for each new scene
      void OnEnable()
     {
         SceneManager.activeSceneChanged += SetMainCamera;
